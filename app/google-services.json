@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "623752896872",
+    "project_id": "fir-1ab77",
+    "storage_bucket": "fir-1ab77.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623752896872:android:cfb9f16994445187f0f6dd",
+        "android_client_info": {
+          "package_name": "com.Swaz.login_registration"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIJB-Zj-i5xOVzwXbrxglaJSUxoQ0dyew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
