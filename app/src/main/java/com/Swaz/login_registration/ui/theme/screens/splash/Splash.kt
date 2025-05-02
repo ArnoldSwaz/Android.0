@@ -33,7 +33,7 @@ fun Sp(
     )
     {
         delay(3000)
-        navController.navigate(""){
+        navController.navigate("home"){
             popUpTo("Sp")
             { inclusive = true }
         }

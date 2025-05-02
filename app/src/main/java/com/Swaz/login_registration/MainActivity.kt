@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.Swaz.login_registration.nav.AppNav
 import com.Swaz.login_registration.ui.theme.Login_RegistrationTheme
 import com.Swaz.login_registration.ui.theme.screens.home.Hm
 
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Hm()
+            AppNav()
         }
     }
 }

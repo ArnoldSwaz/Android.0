@@ -1,6 +1,7 @@
 package com.Swaz.login_registration.ui.theme.screens.login
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,10 +24,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Magenta
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +37,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.Swaz.login_registration.R
+import com.Swaz.login_registration.data.AuthViewModel
+import com.Swaz.login_registration.nav.Route_reg
 
 @Composable
 
@@ -42,11 +48,14 @@ fun Login(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
 
     )
     {
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
+        var context= LocalContext.current
         Text(
             text = "Welcome Back",
             color = Color.Black,
@@ -97,7 +106,12 @@ fun Login(navController: NavController){
         )
         Spacer(modifier = Modifier.height(20.dp))
         Button(
-            onClick = {navController.navigate("")},
+            onClick = {
+                val login= AuthViewModel(navController as NavHostController, context )
+                login.lgn(email.trim(),
+                    password.trim()
+                )
+            },
             modifier = Modifier
                 .padding(10.dp),
             shape = RoundedCornerShape(12.dp),
@@ -114,7 +128,7 @@ fun Login(navController: NavController){
             )
         }
         TextButton(
-            onClick = {navController.navigate("")}
+            onClick = {navController.navigate(Route_reg)}
         )
         {
             Text(

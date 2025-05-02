@@ -30,14 +30,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.Swaz.login_registration.R
+import com.Swaz.login_registration.data.AuthViewModel
+import com.Swaz.login_registration.nav.Route_lgn
 
 @Composable
 fun Reg(
@@ -56,6 +61,7 @@ fun Reg(
         var last_name by remember { mutableStateOf("") }
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
+        var context= LocalContext.current
         Text(
             text = "Welcome Back",
             color = Color.Black,
@@ -135,7 +141,9 @@ fun Reg(
         )
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = {},
+            onClick = {
+
+            },
             modifier = Modifier
                 .padding(10.dp),
             shape = RoundedCornerShape(12.dp),
@@ -146,7 +154,7 @@ fun Reg(
         ) {
             Text("Register", fontSize = 20.sp, fontWeight = FontWeight.Bold)
         }
-        TextButton(onClick = { navController.navigate("") }) {
+        TextButton(onClick = { navController.navigate(Route_lgn) }) {
             Text(
                 text = "Already have an account? Login ",
                 fontSize = 20.sp
@@ -156,3 +164,4 @@ fun Reg(
     }
 
 }
+

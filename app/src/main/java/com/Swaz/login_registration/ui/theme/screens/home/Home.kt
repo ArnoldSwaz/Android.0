@@ -40,7 +40,7 @@ fun Hm(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White),
+            .background(color = Color.LightGray),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
 
@@ -48,7 +48,7 @@ fun Hm(
     {
         Text(
             text = "Welcome Home",
-            color = Color.Black,
+            color = Color.White,
             fontSize = 50.sp,
             fontFamily = FontFamily.Cursive
         )
@@ -62,7 +62,7 @@ fun Hm(
 
         )
         Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = {},
+        Button(onClick = {navController.navigate("login")},
             modifier = Modifier
                     .padding(10.dp),
             shape = RoundedCornerShape(12.dp),
@@ -74,12 +74,12 @@ fun Hm(
         )
             {
             Text(
-                "",
+                "Login",
                 fontSize = 20.sp ,
                 fontWeight = FontWeight.Bold
             )
             }
-        Button(onClick = {},
+        Button(onClick = {navController.navigate("register")},
             modifier = Modifier
                 .padding(10.dp),
             shape = RoundedCornerShape(12.dp),
@@ -91,7 +91,7 @@ fun Hm(
         )
         {
             Text(
-                "",
+                "Register",
                 fontSize = 20.sp ,
                 fontWeight = FontWeight.Bold
             )
