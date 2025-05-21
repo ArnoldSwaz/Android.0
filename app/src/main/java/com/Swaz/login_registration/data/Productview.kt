@@ -1,46 +1,52 @@
 package com.Swaz.login_registration.data
-import android.R.attr.progress
+
+import android.app.ProgressDialog
 import android.content.Context
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation.NavHostController
+import com.Swaz.login_registration.model.Product
+import com.Swaz.login_registration.model.Uploads
+import com.Swaz.login_registration.nav.Route_lgn
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.util.Calendar.getInstance
-import kotlin.jvm.java
+import com.google.firebase.storage.FirebaseStorage
 
 
-class Product(
+class productviewmodel(
     var navController: NavHostController,
     var context: Context
 )
 {
-    var authRepository : AuthViewModel
-    init
-    {
+    var authRepository: AuthViewModel
+    var progress: ProgressDialog
+
+    init {
         authRepository = AuthViewModel(navController, context)
         if (
-            !authRepository
-                .isloggedin()
-        ) {
-            navController.navigate(ROUTE_LOGIN)
+            !authRepository.isloggedin()
+            )
+        {
+            navController.navigate(Route_lgn)
         }
+        progress = ProgressDialog(context)
+        progress.setTitle("Loading")
+        progress.setMessage("Please wait...")
     }
+
+
     fun saveProduct(
         productName: String,
         productQuantity: String,
         productPrice: String
     )
     {
-        var id = System
-            .currentTimeMillis()
-            .toString()
-        var productData = Product(
-            productName,
+        var id = System.currentTimeMillis().toString()
+        var productData = Product(productName,
             productQuantity,
             productPrice,
             id
@@ -57,8 +63,7 @@ class Product(
                 it.isSuccessful
                 )
             {
-                Toast.makeText(
-                    context,
+                Toast.makeText(context,
                     "Saving successful",
                     Toast.LENGTH_SHORT
                 )
@@ -66,8 +71,7 @@ class Product(
             }
             else
             {
-                Toast.makeText(
-                    context,
+                Toast.makeText(context,
                     "ERROR: ${it.exception!!.message}",
                     Toast.LENGTH_SHORT
                 )
@@ -80,11 +84,13 @@ class Product(
         product: MutableState<Product>,
         products: SnapshotStateList<Product>
     )
-    : SnapshotStateList<Product> {
+    : SnapshotStateList<Product>
+    {
         var ref = FirebaseDatabase
             .getInstance()
             .getReference()
-            .child("Products")
+            .child("Products"
+            )
 
         progress.show()
         ref.addValueEventListener(
@@ -149,6 +155,7 @@ class Product(
                 )
                     .show()
             }
+
         }
     }
 
@@ -171,7 +178,7 @@ class Product(
             id
         )
         updateRef.setValue(updateData)
-            .addOnCompleteListener{
+            .addOnCompleteListener {
             progress.dismiss()
             if (
                 it.isSuccessful
@@ -201,12 +208,10 @@ class Product(
         filePath: Uri
     )
     {
-        var id = System
-            .currentTimeMillis()
+        var id = System.currentTimeMillis()
             .toString()
         var storageReference = FirebaseStorage
-            .getInstance()
-            .getReference()
+            .getInstance().getReference()
             .child("Uploads/$id")
         progress.show()
 
@@ -218,11 +223,10 @@ class Product(
                 )
             {
                 // Proceed to store other data into the db
-                storageReference
-                    .downloadUrl
+                storageReference.downloadUrl
                     .addOnSuccessListener {
                     var imageUrl = it.toString()
-                    var houseData = Upload(
+                    var houseData = Uploads(
                         productName,
                         productQuantity,
                         productPrice,
@@ -232,7 +236,8 @@ class Product(
                     var dbRef = FirebaseDatabase
                         .getInstance()
                         .getReference()
-                        .child("Uploads/$id")
+                        .child("Uploads/$id"
+                        )
                     dbRef.setValue(houseData)
                     Toast.makeText(context,
                         "Upload successful",
@@ -254,15 +259,16 @@ class Product(
 
 
     fun viewUploads(
-        upload:MutableState<Upload>,
-        uploads:SnapshotStateList<Upload>
+        upload : MutableState<Uploads>,
+        uploads : SnapshotStateList<Uploads>
     )
-    : SnapshotStateList<Upload>
+    : SnapshotStateList<Uploads>
     {
         var ref = FirebaseDatabase
             .getInstance()
             .getReference()
-            .child("Uploads")
+            .child("Uploads"
+            )
 
         progress.show()
         ref.addValueEventListener(
@@ -276,17 +282,25 @@ class Product(
                 )
                 {
                     val value = snap.getValue(
-                        Upload::class.java)
+                        Uploads::class.java
+                    )
                     upload.value = value!!
-                    uploads.add(value)
+                    uploads.add(value
+                    )
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,
+                    error.message,
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
             }
-        })
+        }
+        )
         return uploads
     }
+
 
 }

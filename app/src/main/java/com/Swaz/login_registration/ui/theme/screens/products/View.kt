@@ -1,46 +1,43 @@
 package com.Swaz.login_registration.ui.theme.screens.products
 
-import android.content.Context
-import android.net.Uri
-import android.provider.MediaStore
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.Swaz.login_registration.data.productviewmodel
+import com.Swaz.login_registration.model.Product
+import com.Swaz.login_registration.nav.Route_upt
+
 
 @Composable
-fun ViewProductsScreen(navController:NavHostController) {
-    Column(modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+fun View(
+    navController:NavHostController
+)
+{
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    )
+    {
 
         var context = LocalContext.current
         var productRepository = productviewmodel(navController, context)
@@ -56,7 +53,8 @@ fun ViewProductsScreen(navController:NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         )
         {
-            Text(text = "All products",
+            Text(
+                text = "All products",
                 fontSize = 30.sp,
                 fontFamily = FontFamily.Cursive,
                 color = Color.Red)
@@ -65,7 +63,8 @@ fun ViewProductsScreen(navController:NavHostController) {
 
             LazyColumn()
             {
-                items(products)
+                items(
+                    products)
                 {
                     ProductItem(
                         name = it.name,
@@ -93,15 +92,19 @@ fun ProductItem(
 )
 {
 
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
+    Column(modifier = Modifier
+        .fillMaxWidth()
     )
     {
-        Text(text = name)
-        Text(text = quantity)
-        Text(text = price)
+        Text(
+            text = name
+        )
+        Text(
+            text = quantity
+        )
+        Text(
+            text = price
+        )
         Button(
             onClick = {
             productRepository.deleteProduct(id)
@@ -112,7 +115,8 @@ fun ProductItem(
         }
         Button(
             onClick = {
-            navController.navigate(ROUTE_UPDATE_PRODUCT+"/$id")
+            navController.navigate(Route_upt +"/$id"
+            )
         }
         )
         {

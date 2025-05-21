@@ -1,15 +1,9 @@
 package com.Swaz.login_registration.ui.theme.screens.products
 
-import android.content.Context
-import android.net.Uri
-import android.provider.MediaStore
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -24,7 +18,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -33,8 +26,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.google.firebase.database.FirebaseDatabase
+import android.widget.Toast
+import androidx.navigation.NavHostController
+import com.Swaz.login_registration.data.productviewmodel
+import com.Swaz.login_registration.model.Product
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 @Composable
 fun Upt(
@@ -61,7 +60,9 @@ fun Upt(
             object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot)
             {
-                var product = snapshot.getValue(Product::class.java)
+                var product = snapshot.getValue(
+                    Product::class.java
+                )
                 name = product!!.name
                 quantity = product!!.quantity
                 price = product!!.price
@@ -69,7 +70,12 @@ fun Upt(
 
             override fun onCancelled(error: DatabaseError)
             {
-                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    error.message,
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
             }
         }
         )
@@ -115,12 +121,17 @@ fun Upt(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = {
+        Button(
+            onClick =
+                {
             //-----------WRITE THE UPDATE LOGIC HERE---------------//
             var productRepository = productviewmodel(navController, context)
-            productRepository.updateProduct(productName.text.trim(),productQuantity.text.trim(),
-                productPrice.text.trim(),id)
-        }
+            productRepository.updateProduct(
+                productName.text.trim(),
+                productQuantity.text.trim(),
+                productPrice.text.trim(),id
+            )
+            }
         )
         {
             Text(text = "Update")

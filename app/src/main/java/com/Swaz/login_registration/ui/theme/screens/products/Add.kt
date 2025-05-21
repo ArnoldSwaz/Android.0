@@ -34,6 +34,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.Swaz.login_registration.data.productviewmodel
+import com.Swaz.login_registration.nav.Route_hm
 
 @Composable
 fun Add(
@@ -89,9 +91,12 @@ fun Add(
         Button(onClick = {
             //-----------WRITE THE SAVE LOGIC HERE---------------//
             var productRepository = productviewmodel(navController,context)
-            productRepository.saveProduct(productName.text.trim(),productQuantity.text.trim(),
-                productPrice.text)
-            navController.navigate(ROUTE_VIEW_PRODUCT)
+            productRepository.saveProduct(
+                productName.text.trim(),
+                productQuantity.text.trim(),
+                productPrice.text
+            )
+            navController.navigate("")
 
 
         }) {
@@ -165,7 +170,12 @@ fun ImagePicker(
                 {
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
                 var productRepository = productviewmodel(navController,context)
-                productRepository.saveProductWithImage(name, quantity, price,imageUri!!)
+                productRepository.saveProductWithImage(
+                    name,
+                    quantity,
+                    price,
+                    imageUri!!
+                )
                 }
             )
             {

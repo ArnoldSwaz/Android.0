@@ -1,5 +1,6 @@
 package com.Swaz.login_registration.data
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.widget.Toast
 import androidx.navigation.NavHostController
@@ -15,7 +16,7 @@ class AuthViewModel(
     var navController: NavHostController,
     var context : Context,
 
-)
+    )
 {
     var Auth: FirebaseAuth
     init {
